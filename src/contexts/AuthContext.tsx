@@ -88,9 +88,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         throw new Error("Conta desativada. Entre em contato com um administrador.");
       }
 
-      const { password: _, ...userWithoutPassword } = foundUser;
+      // Use type assertion instead of destructuring with omission
+      const userWithoutPassword = {
+        id: foundUser.id,
+        name: foundUser.name,
+        email: foundUser.email,
+        role: foundUser.role,
+        active: foundUser.active
+      };
       
-      setUser(userWithoutPassword as User);
+      setUser(userWithoutPassword);
       localStorage.setItem("user", JSON.stringify(userWithoutPassword));
       
       toast.success(`Bem-vindo, ${foundUser.name}!`);
