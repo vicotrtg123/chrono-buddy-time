@@ -88,12 +88,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         throw new Error("Conta desativada. Entre em contato com um administrador.");
       }
 
-      // Use type assertion instead of destructuring with omission
-      const userWithoutPassword = {
+      // Create user object with proper type assertion for role
+      const userWithoutPassword: User = {
         id: foundUser.id,
         name: foundUser.name,
         email: foundUser.email,
-        role: foundUser.role,
+        role: foundUser.role as "admin" | "employee",
         active: foundUser.active
       };
       
