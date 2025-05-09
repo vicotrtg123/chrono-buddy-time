@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
@@ -15,8 +15,8 @@ export default function TimeEntryForm({ onSuccess }: { onSuccess?: () => void })
   const [activeEntry, setActiveEntry] = useState<{ id: number; entrada: string } | null>(null);
   const { user } = useAuth();
 
-  // Check for active entry on component mount
-  useState(() => {
+  // Fix: Use useEffect to check for active entries when component mounts
+  useEffect(() => {
     const checkActiveEntry = async () => {
       if (!user) return;
       
@@ -34,7 +34,7 @@ export default function TimeEntryForm({ onSuccess }: { onSuccess?: () => void })
     };
     
     checkActiveEntry();
-  });
+  }, [user]); // Added dependency array with user
 
   const handleSubmit = async () => {
     if (!user) return;

@@ -123,6 +123,7 @@ export default function TimeEntriesList({
       toast.success("Solicitação de edição enviada com sucesso!");
       setEditDialogOpen(false);
       setEditReason("");
+      loadEntries(); // Refresh the list after edit request
       if (onRefresh) onRefresh();
     } catch (error) {
       console.error("Error submitting edit request:", error);
